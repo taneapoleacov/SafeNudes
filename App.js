@@ -1,23 +1,17 @@
-import React from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';  
 
-import { Icon } from 'react-native-elements';
+import LoginScreen from './src/screens/LoginScreen'
+import ChatScreen from './src/screens/ChatScreen'
+import RegistrationScreen from './src/screens/RegistratrionScreen'
+import AllContactsScreen from './src/screens/AllContactsScreen'
 
-const App = () => {
-  return (
-    <View>
-      <Text>Hello, world!</Text>
-      <Icon
-        name='card-giftcard'
-        type='material'
-        color='#000000'
-      />
+const MainNavigator = createStackNavigator({
+  Login: {screen: LoginScreen},
+  Registration :{screen: RegistrationScreen},
+  Chat: {screen: ChatScreen},
+  AllConctacst:{screen: AllContactsScreen}
+});
 
-    </View>
-  );
-};
 
-export default App;
+export default createAppContainer(MainNavigator);
