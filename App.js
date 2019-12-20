@@ -5,6 +5,8 @@ import LoginScreen from './src/screens/LoginScreen';
 import ChatScreen from './src/screens/ChatScreen';
 import RegistrationScreen from './src/screens/RegistratrionScreen';
 import AllContactsScreen from './src/screens/AllContactsScreen';
+import COLORS from './src/assets/COLORS';
+import {RawButton} from 'react-native-gesture-handler';
 
 const MainNavigator = createStackNavigator(
   {
@@ -29,7 +31,10 @@ const MainNavigator = createStackNavigator(
     AllContacts: {
       screen: AllContactsScreen,
       navigationOptions: () => ({
-        title: `Allcontacts`,
+        title: `AllContacts`,
+        headerStyle: {
+          backgroundColor: COLORS.accentColor,
+        },
       }),
     },
   },

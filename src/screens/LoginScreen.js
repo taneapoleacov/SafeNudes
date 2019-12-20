@@ -19,7 +19,7 @@ const LoginScreen = ({navigation}) => {
         backgroundColor={COLORS.blackgroundColor}
       />
 
-      <Text style={styles.applicationTitle}>Safe Transfer</Text>
+      <Text style={styles.applicationTitle}>Safe Transfer </Text>
 
       <View style={styles.loginForm}>
         <Text style={styles.text}>Email</Text>
@@ -70,7 +70,7 @@ const LoginScreen = ({navigation}) => {
 
       <View style={styles.createAccountView}>
         <Text style={styles.doNotHaveAccountText}>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+        <TouchableOpacity onPress={() => navigation.navigate('AllContacts')}>
           <Text style={styles.createAccountText}> Create Account </Text>
         </TouchableOpacity>
       </View>

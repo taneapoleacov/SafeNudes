@@ -4,6 +4,7 @@ const COLORS = {
   blackgroundColor: '#151515',
   accentColor: '#ea773c',
   gray: '#a2b0b8',
+  orangeOpac: 'rgba(	234, 119, 60, 0.7)',
   // your colors
 };
 
