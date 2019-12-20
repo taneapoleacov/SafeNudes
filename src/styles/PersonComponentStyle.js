@@ -8,6 +8,7 @@ const PersonComponetStyle = StyleSheet.create({
     alignItems: 'center',
     marginTop: '2%',
     marginLeft: '2%',
+    marginBottom: '2%',
   },
   nameText: {
     fontSize: 24,

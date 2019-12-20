@@ -1,17 +1,32 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StatusBar} from 'react-native';
 import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
-
+import firebase from 'firebase';
+import Firebase from '../components/Firebase';
+import User from '../components/User';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const _handlePress = () => {
-    console.log(email);
-    console.log(password);
+    User.email = email;
+    User.password = password;
+    navigation.navigate('AllContacts');
+    firebase;
+    // .database()
+    // .ref('users/' + User.email)
+    // .set({email: email});
+    // console.log(email);
+    // console.log(password);
   };
+
+  useEffect(() => {
+    // Your web app's Firebase configuration
+    Firebase;
+  });
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -70,7 +85,7 @@ const LoginScreen = ({navigation}) => {
 
       <View style={styles.createAccountView}>
         <Text style={styles.doNotHaveAccountText}>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('AllContacts')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
           <Text style={styles.createAccountText}> Create Account </Text>
         </TouchableOpacity>
       </View>

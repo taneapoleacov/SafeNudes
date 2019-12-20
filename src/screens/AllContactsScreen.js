@@ -1,17 +1,44 @@
-import React from 'react';
-import {View, Text, StatusBar} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  FlatList,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 import COLORS from '../assets/COLORS';
 import Person from '../components/Person';
+import User from '../components/User';
+import firebase from 'firebase';
 
-const AllContactsScreen = () => {
+const AllContactsScreen = ({navigation}) => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    let dbRef = firebase.database().ref('users');
+    dbRef.on('child_added', val => {
+      let person = val.val();
+      person.name = val.key;
+      setUsers([...users, person]);
+      console.log(person.name);
+    });
+  }, []);
+
+  const renderRow = ({item}) => {
+    return <Person name={item.name} navigation={navigation} />;
+  };
+
   return (
-    <View>
+    <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.orangeOpac} />
-      <Person name="jora" />
-      <Person name="jora" />
-      <Person name="jora" />
-      <Person name="jora" />
-    </View>
+
+      <FlatList
+        data={users}
+        renderItem={renderRow}
+        keyExtractor={item => item.name}
+      />
+    </SafeAreaView>
   );
 };
 

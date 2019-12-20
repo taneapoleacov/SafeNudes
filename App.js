@@ -25,7 +25,10 @@ const MainNavigator = createStackNavigator(
     Chat: {
       screen: ChatScreen,
       navigationOptions: () => ({
-        title: `Chat`,
+        // title: `Chat`,/
+        headerStyle: {
+          backgroundColor: COLORS.accentColor,
+        },
       }),
     },
     AllContacts: {
