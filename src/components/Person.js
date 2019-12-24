@@ -4,11 +4,11 @@ import styles from '../styles/PersonComponentStyle';
 import COLORS from '../assets/COLORS';
 import {Avatar} from 'react-native-elements';
 
-const Person = ({name, navigation}) => {
+const Person = ({name, navigation, item}) => {
   return (
     <View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Chat')}
+        onPress={() => navigation.navigate('Chat', item)}
         style={styles.container}>
         <Avatar size="medium" rounded title="MD" />
         <Text style={styles.nameText}>{name}</Text>

@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, TouchableOpacity, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StatusBar,
+  AsyncStorage,
+} from 'react-native';
 import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
@@ -11,7 +18,7 @@ const RegistrationScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const _handlePress = () => {
+  const _handlePress = async () => {
     User.email = email;
     User.password = password;
     User.name = name;
@@ -20,9 +27,11 @@ const RegistrationScreen = ({navigation}) => {
       .database()
       .ref('users/' + User.name)
       .set({name: User.name});
+    await AsyncStorage.setItem('name', name);
     // console.log(email);
     // console.log(password);
   };
+
 
   return (
     <View style={styles.container}>

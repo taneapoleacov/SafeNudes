@@ -20,19 +20,21 @@ const AllContactsScreen = ({navigation}) => {
     dbRef.on('child_added', val => {
       let person = val.val();
       person.name = val.key;
-      setUsers([...users, person]);
-      console.log(person.name);
+      if (person.name === User.name) {
+        User.name = person.name;
+      } else {
+        setUsers(users => [...users, person]);
+      }
     });
   }, []);
 
   const renderRow = ({item}) => {
-    return <Person name={item.name} navigation={navigation} />;
+    return <Person name={item.name} navigation={navigation} item={item} />;
   };
 
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" backgroundColor={COLORS.orangeOpac} />
-
       <FlatList
         data={users}
         renderItem={renderRow}

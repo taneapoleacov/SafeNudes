@@ -1,11 +1,10 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import COLORS from '../assets/COLORS';
-const {width: WIDTH} = Dimensions.get('window');
+const {HEIGHT, WIDTH} = Dimensions.get('window');
 
 const ChatScreenStyle = StyleSheet.create({
   containter: {
     flex: 1,
-    justifyContent: 'center',
     backgroundColor: COLORS.blackgroundColor,
   },
   inputContainer: {
