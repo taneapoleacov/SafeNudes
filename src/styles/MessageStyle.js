@@ -3,12 +3,13 @@ import COLORS from '../assets/COLORS';
 const {width: WIDTH} = Dimensions.get('window');
 
 const MessageStyle = StyleSheet.create({
-  messageContainer: {
-    flexDirection: 'row',
-    width: '60%',
-  },
   text: {
     color: COLORS.white,
+    fontSize: 20,
+  },
+  time: {
+    color: COLORS.white,
+    fontSize: 14,
   },
 });
 export default MessageStyle;
