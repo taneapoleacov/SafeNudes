@@ -14,7 +14,6 @@ import dadada from '../../App';
 import COLORS from '../assets/COLORS';
 import styles from '../styles/ChatScreenStyle';
 import User from '../components/User';
-import firebase from 'firebase';
 import Message from '../components/Message';
 const ChatScreen = ({navigation}) => {
   const [textMessage, setTextMessage] = useState('');
@@ -25,32 +24,31 @@ const ChatScreen = ({navigation}) => {
   });
 
   const sendMessage = async () => {
-    if (textMessage.length > 0) {
-      let msgId = firebase
-        .database()
-        .ref('message')
-        .child(User.name)
-        .child(person.name)
-        .push().key;
-      let updates = {};
-      let message = {
-        message: textMessage,
-        time: firebase.database.ServerValue.TIMESTAMP,
-        from: User.name,
-      };
-      updates[
-        'messages/' + User.name + '/' + person.name + '/' + msgId
-      ] = message;
-      updates[
-        'messages/' + person.name + '/' + User.name + '/' + msgId
-      ] = message;
-
-      firebase
-        .database()
-        .ref()
-        .update(updates);
-      setTextMessage('');
-    }
+    // if (textMessage.length > 0) {
+    //   let msgId = firebase
+    //     .database()
+    //     .ref('message')
+    //     .child(User.name)
+    //     .child(person.name)
+    //     .push().key;
+    //   let updates = {};
+    //   let message = {
+    //     message: textMessage,
+    //     time: firebase.database.ServerValue.TIMESTAMP,
+    //     from: User.name,
+    //   };
+    //   updates[
+    //     'messages/' + User.name + '/' + person.name + '/' + msgId
+    //   ] = message;
+    //   updates[
+    //     'messages/' + person.name + '/' + User.name + '/' + msgId
+    //   ] = message;
+    //   firebase
+    //     .database()
+    //     .ref()
+    //     .update(updates);
+    //   setTextMessage('');
+    // }
   };
 
   // const handleChange = ({name}) => {
@@ -59,16 +57,16 @@ const ChatScreen = ({navigation}) => {
 
   useEffect(() => {
     ChatScreen.navigationOptions = {
-      title: navigation.getParam('name'),
+      title: navigation.getParam('Name'),
     };
-    firebase
-      .database()
-      .ref('messages')
-      .child(User.name)
-      .child(person.name)
-      .on('child_added', value => {
-        setMessageList(messageList => [...messageList, value.val()]);
-      });
+    //   firebase
+    //     .database()
+    //     .ref('messages')
+    //     .child(User.name)
+    //     .child(person.name)
+    //     .on('child_added', value => {
+    //       setMessageList(messageList => [...messageList, value.val()]);
+    //     });
   }, []);
 
   const renderRow = ({item}) => {

@@ -3,8 +3,6 @@ import {View, Text, TextInput, TouchableOpacity, StatusBar} from 'react-native';
 import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
-import firebase from 'firebase';
-import Firebase from '../components/Firebase';
 import User from '../components/User';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -14,17 +12,10 @@ const LoginScreen = ({navigation}) => {
     User.email = email;
     User.password = password;
     navigation.navigate('AllContacts');
-    firebase;
-    // .database()
-    // .ref('users/' + User.email)
-    // .set({email: email});
-    // console.log(email);
-    // console.log(password);
   };
 
   useEffect(() => {
     // Your web app's Firebase configuration
-    Firebase;
   });
 
   return (

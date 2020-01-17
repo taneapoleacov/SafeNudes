@@ -11,7 +11,6 @@ import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
 import User from '../components/User';
-import firebase from 'firebase';
 const RegistrationScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,15 +22,10 @@ const RegistrationScreen = ({navigation}) => {
     User.password = password;
     User.name = name;
     navigation.navigate('AllContacts');
-    firebase
-      .database()
-      .ref('users/' + User.name)
-      .set({name: User.name});
-    await AsyncStorage.setItem('name', name);
+
     // console.log(email);
     // console.log(password);
   };
-
 
   return (
     <View style={styles.container}>
