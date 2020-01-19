@@ -1,8 +1,8 @@
 const User = {
-  name: null,
-  email: null,
-  password: null,
-  id: null,
+  Name: null,
+  Email: null,
+  Password: null,
+  Id: null,
 };
 
 export default User;

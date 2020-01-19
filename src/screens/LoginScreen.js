@@ -9,13 +9,13 @@ const LoginScreen = ({navigation}) => {
   const [password, setPassword] = useState('');
 
   const _handlePress = () => {
-    User.email = email;
-    User.password = password;
+    User.Name = email;
+    User.Id = password;
     navigation.navigate('AllContacts');
   };
 
   useEffect(() => {
-    // Your web app's Firebase configuration
+    // when login get your Id
   });
 
   return (

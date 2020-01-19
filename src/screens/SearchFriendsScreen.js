@@ -9,25 +9,61 @@ import {
   SafeAreaView,
 } from 'react-native';
 import COLORS from '../assets/COLORS';
+import AddFriend from '../components/AddFriend';
+import User from '../components/User';
+import {Icon} from 'react-native-elements';
+import isContain from '../functions/isConaint';
+
 const SearchFriendsScreen = ({navigation}) => {
+  const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    SearchFriendsScreen.navigationOptions = {
+      headerRight: (
+        <TouchableOpacity onPress={() => navigation.navigate('FriendRequests')}>
+          <Icon name="people" type="material" color={COLORS.blasck} size={40} />
+        </TouchableOpacity>
+      ),
+    };
+  });
+
   useEffect(() => {
     fetch('http://192.168.1.106:8081/api/users')
       .then(response => response.json())
       .then(responseJson => {
-        for (const i in responseJson) {
-          console.log(responseJson[i]);
+        for (const key in responseJson) {
+          if (!isContain(responseJson[key], friends)) {
+            setFriends(friends => [...friends, responseJson[key]]);
+          }
+        }
+        for (const key in responseJson) {
+          if (responseJson[key].Id != User.Id) {
+            if (
+              !isContain(responseJson[key], users) &&
+              !isContain(responseJson[key], friends)
+            ) {
+              setUsers(users => [...users, responseJson[key]]);
+            }
+          }
         }
       })
       .catch(error => console.log(error));
-  }, []);
+  });
+
+  const renderRow = ({item}) => {
+    return <AddFriend item={item} />;
+  };
 
   return (
-    <View>
-      <Button
-        title="Press me"
-        onPress={() => Alert.alert('Button with adjusted color pressed')}
+    <SafeAreaView>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.orangeOpac} />
+      <FlatList
+        data={users}
+        renderItem={renderRow}
+        keyExtractor={item => item.Id}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

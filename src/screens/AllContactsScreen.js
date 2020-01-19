@@ -12,28 +12,30 @@ import COLORS from '../assets/COLORS';
 import Person from '../components/Person';
 import User from '../components/User';
 import styles from '../styles/AllContactsStyle';
+import {Icon} from 'react-native-elements';
+import isContain from '../functions/isConaint';
+import useInterval from '../functions/useInterval';
+
 const AllContactsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
-
-  useEffect(() => {
+  useInterval(() => {
     AllContactsScreen.navigationOptions = {
       headerRight: (
-        <Button
-          title="About"
-          onPress={() => navigation.navigate('SearchFriends')}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate('SearchFriends')}>
+          <Icon name="search" type="material" color={COLORS.black} size={40} />
+        </TouchableOpacity>
       ),
     };
+  }, 500);
 
-    fetch('http://192.168.1.106:8081/api/users')
+  useEffect(() => {
+    fetch('http://192.168.1.106:8081/api/users/' + User.Id + '/friends')
       .then(response => response.json())
       .then(responseJson => {
-        for (const i in responseJson) {
-          let person = responseJson[i];
-          if (person.name === User.name) {
-            console.log('bla');
-          } else {
-            setUsers(users => [...users, responseJson[i]]);
+        console.log(responseJson);
+        for (const key in responseJson) {
+          if (!isContain(responseJson[key], users)) {
+            setUsers(users => [...users, responseJson[key]]);
           }
         }
       })
@@ -50,7 +52,7 @@ const AllContactsScreen = ({navigation}) => {
       <FlatList
         data={users}
         renderItem={renderRow}
-        keyExtractor={item => item.Name}
+        keyExtractor={item => item.Id}
       />
     </SafeAreaView>
   );
