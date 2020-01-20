@@ -18,22 +18,15 @@ import useInterval from '../functions/useInterval';
 
 const AllContactsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
-  useInterval(() => {
-    AllContactsScreen.navigationOptions = {
-      headerRight: (
-        <TouchableOpacity onPress={() => navigation.navigate('SearchFriends')}>
-          <Icon name="search" type="material" color={COLORS.black} size={40} />
-        </TouchableOpacity>
-      ),
-    };
-  }, 500);
 
   useEffect(() => {
-    fetch('http://192.168.1.106:8081/api/users/' + User.Id + '/friends')
+    fetch('http://192.168.103.103:8081/api/users/' + User.Id + '/friends')
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
         for (const key in responseJson) {
+          console.log(responseJson);
+          console.log(users);
+          console.log(isContain(responseJson[key], users));
           if (!isContain(responseJson[key], users)) {
             setUsers(users => [...users, responseJson[key]]);
           }
@@ -59,3 +52,12 @@ const AllContactsScreen = ({navigation}) => {
 };
 
 export default AllContactsScreen;
+AllContactsScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.navigate('SearchFriends')}>
+        <Icon name="search" type="material" color={COLORS.black} size={40} />
+      </TouchableOpacity>
+    ),
+  };
+};

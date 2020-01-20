@@ -11,7 +11,7 @@ const AceeptFriend = ({item}) => {
       <TouchableOpacity
         onPress={() => {
           fetch(
-            'http://192.168.1.106:8081/api/users/' +
+            'http://192.168.103.103:8081/api/users/' +
               User.Id +
               '/friends/' +
               item.Id,

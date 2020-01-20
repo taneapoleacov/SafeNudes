@@ -17,7 +17,7 @@ const AcceptFriendsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.1.106:8081/api/users/' + User.Id + '/requests')
+    fetch('http://192.168.103.103:8081/api/users/' + User.Id + '/requests')
       .then(response => response.json())
       .then(responseJson => {
         for (const i in responseJson) {
@@ -46,3 +46,12 @@ const AcceptFriendsScreen = ({navigation}) => {
 };
 
 export default AcceptFriendsScreen;
+AcceptFriendsScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Icon name="android" color={COLORS.blasck} size={40} />
+      </TouchableOpacity>
+    ),
+  };
+};

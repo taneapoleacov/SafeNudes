@@ -19,17 +19,7 @@ const SearchFriendsScreen = ({navigation}) => {
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    SearchFriendsScreen.navigationOptions = {
-      headerRight: (
-        <TouchableOpacity onPress={() => navigation.navigate('FriendRequests')}>
-          <Icon name="people" type="material" color={COLORS.blasck} size={40} />
-        </TouchableOpacity>
-      ),
-    };
-  });
-
-  useEffect(() => {
-    fetch('http://192.168.1.106:8081/api/users')
+    fetch('http://192.168.103.103:8081/api/users')
       .then(response => response.json())
       .then(responseJson => {
         for (const key in responseJson) {
@@ -68,3 +58,13 @@ const SearchFriendsScreen = ({navigation}) => {
 };
 
 export default SearchFriendsScreen;
+
+SearchFriendsScreen.navigationOptions = ({navigation}) => {
+  return {
+    headerRight: (
+      <TouchableOpacity onPress={() => navigation.navigate('FriendRequests')}>
+        <Icon name="people" type="material" color={COLORS.blasck} size={40} />
+      </TouchableOpacity>
+    ),
+  };
+};

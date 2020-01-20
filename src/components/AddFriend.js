@@ -10,7 +10,7 @@ const AddFriend = ({item}) => {
     <View>
       <TouchableOpacity
         onPress={() => {
-          fetch('http://192.168.1.106:8081/api/users/' + item.Id + '/friends', {
+          fetch('http://192.168.103.103:8081/api/users/' + item.Id + '/friends', {
             method: 'POST',
             headers: {
               Accept: 'application/json',

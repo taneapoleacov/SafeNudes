@@ -8,6 +8,7 @@ import RegistrationScreen from './src/screens/RegistratrionScreen';
 import AllContactsScreen from './src/screens/AllContactsScreen';
 import SearchFriendsScreen from './src/screens/SearchFriendsScreen';
 import AcceptFriendsScreen from './src/screens/AcceptFriendsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
 import COLORS from './src/assets/COLORS';
 import {RawButton} from 'react-native-gesture-handler';
 import {Button, Text} from 'react-native';
@@ -24,6 +25,15 @@ const MainNavigator = createStackNavigator(
       screen: RegistrationScreen,
       navigationOptions: () => ({
         header: null,
+      }),
+    },
+    Profile: {
+      screen: ProfileScreen,
+      navigationOptions: () => ({
+        title: `Profile`,
+        headerStyle: {
+          backgroundColor: COLORS.accentColor,
+        },
       }),
     },
     Chat: {
