@@ -8,63 +8,48 @@ import {
   FlatList,
   AsyncStorage,
 } from 'react-native';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import dadada from '../../App';
 import COLORS from '../assets/COLORS';
 import styles from '../styles/ChatScreenStyle';
 import User from '../components/User';
 import Message from '../components/Message';
+import APIURL from '../components/APIURL';
+import isContain from '../functions/isConaintMessage';
+import useInterval from '../functions/useInterval';
+
 const ChatScreen = ({navigation}) => {
   const [textMessage, setTextMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
 
-  const [person, setPerson] = useState({
-    name: navigation.getParam('name'),
-  });
+  const secondUser = navigation.getParam('Id');
+  const chat_id = navigation.getParam('chat_id');
 
-  const sendMessage = async () => {
-    // if (textMessage.length > 0) {
-    //   let msgId = firebase
-    //     .database()
-    //     .ref('message')
-    //     .child(User.name)
-    //     .child(person.name)
-    //     .push().key;
-    //   let updates = {};
-    //   let message = {
-    //     message: textMessage,
-    //     time: firebase.database.ServerValue.TIMESTAMP,
-    //     from: User.name,
-    //   };
-    //   updates[
-    //     'messages/' + User.name + '/' + person.name + '/' + msgId
-    //   ] = message;
-    //   updates[
-    //     'messages/' + person.name + '/' + User.name + '/' + msgId
-    //   ] = message;
-    //   firebase
-    //     .database()
-    //     .ref()
-    //     .update(updates);
-    //   setTextMessage('');
-    // }
+  useInterval(() => {
+    fetch(APIURL.URL + ':8089/api/chats/' + chat_id + '/messages')
+      .then(response => response.json())
+      .then(responseJson => {
+        for (const key in responseJson) {
+          if (!isContain(responseJson[key], messageList)) {
+            setMessageList(messageList => [...messageList, responseJson[key]]);
+          }
+        }
+      })
+      .catch(error => console.log(error));
+  }, 500);
+
+  const sendMessage = () => {
+    fetch(APIURL.URL + ':8089/api/chats/' + chat_id + '/messages', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to_user: secondUser,
+        from_user: User.Id,
+        message: textMessage,
+      }),
+    });
   };
-
-  // const handleChange = ({name}) => {
-  //   setPerson({name: name});
-  // };
-
-  useEffect(() => {
-    //   firebase
-    //     .database()
-    //     .ref('messages')
-    //     .child(User.name)
-    //     .child(person.name)
-    //     .on('child_added', value => {
-    //       setMessageList(messageList => [...messageList, value.val()]);
-    //     });
-  }, []);
 
   const renderRow = ({item}) => {
     return <Message item={item} />;

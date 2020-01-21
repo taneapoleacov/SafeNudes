@@ -12,7 +12,9 @@ const LoginScreen = ({navigation}) => {
 
   const _handlePress = () => {
     User.Email = email;
-    User.password = password;
+    User.Id = password;
+    navigation.navigate('AllContacts');
+
     fetch(APIURL.URL + ':8082/api/login', {
       method: 'GET',
       headers: {

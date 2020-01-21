@@ -24,9 +24,6 @@ const AllContactsScreen = ({navigation}) => {
       .then(response => response.json())
       .then(responseJson => {
         for (const key in responseJson) {
-          console.log(responseJson);
-          console.log(users);
-          console.log(isContain(responseJson[key], users));
           if (!isContain(responseJson[key], users)) {
             setUsers(users => [...users, responseJson[key]]);
           }
@@ -34,6 +31,24 @@ const AllContactsScreen = ({navigation}) => {
       })
       .catch(error => console.log(error));
   }, []);
+
+  useEffect(() => {
+    fetch(APIURL.URL + ':8089/api/chats?email=' + User.Email)
+      .then(response => response.json())
+      .then(responseJson => {
+        for (const key in responseJson) {
+          for (const keyUsers in users) {
+            if (
+              responseJson[key].user_one == users[keyUsers].Id ||
+              responseJson[key].user_two == users[keyUsers].Id
+            ) {
+              // console.log(responseJson[key].chat_id);
+              users[keyUsers].chat_id = responseJson[key].chat_id;
+            }
+          }
+        }
+      });
+  });
 
   const renderRow = ({item}) => {
     return <Person name={item.Name} navigation={navigation} item={item} />;
