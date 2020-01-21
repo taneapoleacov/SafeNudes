@@ -12,18 +12,19 @@ import COLORS from '../assets/COLORS';
 import User from '../components/User';
 import {Icon} from 'react-native-elements';
 import useInterval from '../functions/useInterval';
+import APIURL from '../components/APIURL';
 
 const AcceptFriendsScreen = ({navigation}) => {
   const [profile, setProfile] = useState('');
 
-  useInterval(() => {
-    fetch('http://192.168.1.106:8081/api/users/' + User.Id)
+  useEffect(() => {
+    fetch(APIURL.URL + ':8081/api/users/' + User.Id)
       .then(response => response.json())
       .then(responseJson => {
         setProfile(responseJson);
       })
       .catch(error => console.log(error));
-  }, 1000);
+  }, []);
 
   useEffect(() => {
     console.log(profile.Name);

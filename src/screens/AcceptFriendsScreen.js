@@ -12,12 +12,13 @@ import COLORS from '../assets/COLORS';
 import AcceptFriend from '../components/AcceptFriend';
 import User from '../components/User';
 import {Icon} from 'react-native-elements';
+import APIURL from '../components/APIURL';
 
 const AcceptFriendsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.103.103:8081/api/users/' + User.Id + '/requests')
+    fetch(APIURL.URL + ':8081/api/users/' + User.Id + '/requests')
       .then(response => response.json())
       .then(responseJson => {
         for (const i in responseJson) {

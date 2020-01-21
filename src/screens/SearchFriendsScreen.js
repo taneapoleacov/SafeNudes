@@ -13,13 +13,14 @@ import AddFriend from '../components/AddFriend';
 import User from '../components/User';
 import {Icon} from 'react-native-elements';
 import isContain from '../functions/isConaint';
+import APIURL from '../components/APIURL';
 
 const SearchFriendsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
   const [friends, setFriends] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.103.103:8081/api/users')
+    fetch(APIURL.URL + ':8081/api/users')
       .then(response => response.json())
       .then(responseJson => {
         for (const key in responseJson) {

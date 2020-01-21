@@ -4,13 +4,14 @@ import styles from '../styles/PersonComponentStyle';
 import COLORS from '../assets/COLORS';
 import {Avatar} from 'react-native-elements';
 import User from './User';
+import APIURL from '../components/APIURL';
 
 const AddFriend = ({item}) => {
   return (
     <View>
       <TouchableOpacity
         onPress={() => {
-          fetch('http://192.168.103.103:8081/api/users/' + item.Id + '/friends', {
+          fetch(APIURL.URL + ':8081/api/users/' + item.Id + '/friends', {
             method: 'POST',
             headers: {
               Accept: 'application/json',

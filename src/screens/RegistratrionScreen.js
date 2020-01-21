@@ -11,20 +11,47 @@ import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
 import User from '../components/User';
+import APIURL from '../components/APIURL';
+
 const RegistrationScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const _handlePress = async () => {
-    User.email = email;
-    User.password = password;
-    User.name = name;
-    navigation.navigate('AllContacts');
+  const _handlePress = () => {
+    User.Email = email;
+    User.Password = password;
+    User.Name = name;
 
-    // console.log(email);
-    // console.log(password);
+    if (password !== confirmPassword) {
+      alert('These passwords dont match');
+    } else {
+      fetch(APIURL.URL + ':8082/api/registration', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          Email: email,
+          Password: password,
+          Avatar: 'img_here',
+          Name: name,
+        }),
+      })
+        .then(response => {
+          if (response.status === 201) {
+            navigation.navigate('EnterCode');
+          } else {
+            alert('This email is already taken by another account');
+          }
+          response.json();
+        })
+        .then(responseJson => {
+          console.log(responseJson);
+        });
+    }
   };
 
   return (

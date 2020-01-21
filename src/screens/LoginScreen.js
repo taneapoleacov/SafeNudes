@@ -4,19 +4,33 @@ import styles from '../styles/LoginScreenStyle';
 import COLORS from '../assets/COLORS';
 import {Icon} from 'react-native-elements';
 import User from '../components/User';
+import base64 from 'react-native-base64';
+import APIURL from '../components/APIURL';
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const _handlePress = () => {
-    User.Name = email;
-    User.Id = password;
-    navigation.navigate('AllContacts');
+    User.Email = email;
+    User.password = password;
+    fetch(APIURL.URL + ':8082/api/login', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        credentials: base64.encode(email + ':' + password),
+      },
+    })
+      .then(response => {
+        if (response.status === 200) {
+          navigation.navigate('EnterCode');
+        } else {
+          alert('Wrong Email OR Password');
+        }
+        response.json();
+      })
+      .then(responseJson => {});
   };
-
-  useEffect(() => {
-    // when login get your Id
-  });
 
   return (
     <View style={styles.container}>

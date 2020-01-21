@@ -15,12 +15,12 @@ import styles from '../styles/AllContactsStyle';
 import {Icon} from 'react-native-elements';
 import isContain from '../functions/isConaint';
 import useInterval from '../functions/useInterval';
-
+import APIURL from '../components/APIURL';
 const AllContactsScreen = ({navigation}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch('http://192.168.103.103:8081/api/users/' + User.Id + '/friends')
+    fetch(APIURL.URL + ':8081/api/users/' + User.Id + '/friends')
       .then(response => response.json())
       .then(responseJson => {
         for (const key in responseJson) {

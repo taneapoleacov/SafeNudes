@@ -56,9 +56,6 @@ const ChatScreen = ({navigation}) => {
   // };
 
   useEffect(() => {
-    ChatScreen.navigationOptions = {
-      title: navigation.getParam('Name'),
-    };
     //   firebase
     //     .database()
     //     .ref('messages')
@@ -94,3 +91,9 @@ const ChatScreen = ({navigation}) => {
 };
 
 export default ChatScreen;
+
+ChatScreen.navigationOptions = ({navigation}) => {
+  return {
+    title: navigation.getParam('Name'),
+  };
+};

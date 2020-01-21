@@ -4,6 +4,8 @@ import styles from '../styles/PersonComponentStyle';
 import COLORS from '../assets/COLORS';
 import {Avatar} from 'react-native-elements';
 import User from './User';
+import APIURL from '../components/APIURL';
+
 
 const AceeptFriend = ({item}) => {
   return (
@@ -11,7 +13,7 @@ const AceeptFriend = ({item}) => {
       <TouchableOpacity
         onPress={() => {
           fetch(
-            'http://192.168.103.103:8081/api/users/' +
+            APIURL.URL + ':8081/api/users/' +
               User.Id +
               '/friends/' +
               item.Id,

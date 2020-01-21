@@ -9,6 +9,7 @@ import AllContactsScreen from './src/screens/AllContactsScreen';
 import SearchFriendsScreen from './src/screens/SearchFriendsScreen';
 import AcceptFriendsScreen from './src/screens/AcceptFriendsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
+import EnterCodeScreen from './src/screens/EnterCodeScreen';
 import COLORS from './src/assets/COLORS';
 import {RawButton} from 'react-native-gesture-handler';
 import {Button, Text} from 'react-native';
@@ -23,6 +24,12 @@ const MainNavigator = createStackNavigator(
     },
     Registration: {
       screen: RegistrationScreen,
+      navigationOptions: () => ({
+        header: null,
+      }),
+    },
+    EnterCode: {
+      screen: EnterCodeScreen,
       navigationOptions: () => ({
         header: null,
       }),
